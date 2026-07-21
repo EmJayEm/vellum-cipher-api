@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vellum & Cipher — Legal Intelligence Platform</title>
+<link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+<!-- Auth -->
+<div id="authView" class="auth-wrap">
+  <div class="auth-card">
+    <div class="logo">
+      <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#6366f1"/><path d="M9 8h4l3 8 3-8h4l-5 16h-4L9 8z" fill="#fff"/><circle cx="16" cy="11" r="2" fill="#a5b4fc"/></svg>
+      Vellum & Cipher
+    </div>
+    <div class="subtitle" id="authSubtitle">Sign in to your intelligence workspace</div>
+    <div id="authError" class="auth-error"></div>
+    <form id="authForm" onsubmit="return handleAuth(event)">
+      <div class="form-group" id="nameGroup" style="display:none">
+        <label>Full Name</label>
+        <input type="text" id="regName" placeholder="Jane Smith">
+      </div>
+      <div class="form-group" id="firmGroup" style="display:none">
+        <label>Firm (optional)</label>
+        <input type="text" id="regFirm" placeholder="Smith & Partners LLP">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="authEmail" placeholder="demo@vellumcipher.com" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="authPass" placeholder="demo123" required>
+      </div>
+      <button type="submit" class="btn btn-primary" id="authBtn">Sign In</button>
+    </form>
+    <div class="auth-toggle" id="authToggle">
+      Don't have an account? <a href="#" onclick="toggleAuthMode()">Register</a>
+    </div>
+  </div>
+</div>
+
+<!-- App -->
+<div id="appView" class="app">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#6366f1"/><path d="M9 8h4l3 8 3-8h4l-5 16h-4L9 8z" fill="#fff"/></svg>
+      <span class="logo">Vellum & Cipher</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active" data-page="dashboard" onclick="navigateTo('dashboard')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a href="#" data-page="chat" onclick="navigateTo('chat')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        AI Chat
+      </a>
+      <a href="#" data-page="documents" onclick="navigateTo('documents')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        Documents
+      </a>
+      <a href="#" data-page="clauses" onclick="navigateTo('clauses')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Clause Library
+      </a>
+    </nav>
+    <div class="sidebar-section">Matters</div>
+    <div class="sidebar-matters" id="sidebarMatters"></div>
+    <div class="sidebar-footer">
+      <div class="avatar" id="userAvatar">D</div>
+      <span id="userName">Demo User</span>
+      <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <h2 id="pageTitle">Dashboard</h2>
+    <div id="topActions"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main" id="mainContent"></div>
+</div>
+
+<!-- Upload Modal -->
+<div id="uploadModal" class="modal-overlay">
+  <div class="modal">
+    <h3>Analyse Document</h3>
+    <div class="form-group">
+      <label>Document Name</label>
+      <input type="text" id="uploadFilename" placeholder="Service Agreement v2.pdf">
+    </div>
+    <div class="form-group">
+      <label>Matter</label>
+      <select id="uploadMatter" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg)"></select>
+    </div>
+    <div class="form-group">
+      <label>Paste document text for analysis</label>
+      <textarea id="uploadContent" placeholder="Paste your contract or legal document text here for clause extraction and risk analysis..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="uploadDocument()" style="width:auto">Analyse</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
